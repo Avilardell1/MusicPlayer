@@ -23,24 +23,26 @@ export default class PlayerScreen extends Component {
             <SearchBox />
         )   
     }    
-    render() {        
-        return ( 
-            <View style={{ height: '100%', backgroundColor: 'black'}}>
-                <View style={{width: '100%', alignItems:'center', justifyContent:'center', marginVertical: 50}}>                                    
-                    <Image
-                    source={{ uri: 'https://www.viasona.cat/imatges/discos/obrint-pas-benvinguts-al-paradis.jpg' }}
-                    style={{ width: 360, height: 360, flex: 1 }}
-                    PlaceholderContent={<ActivityIndicator />}
-                    />
-                    <Icon name='ios-play'
-                    reverse
-                    type='ionicon'
-                    color='red'
-                    iconStyle={{fontSize: 50, left: 2}}
-                    containerStyle={{marginTop: -50}}
-                    onPress={()=> console.log("Hola")}/>                 
-                </View>
-             </View>   
-        );        
+    render() {   
+        if (this.state.song != " ") {     
+            return ( 
+                <View style={{ height: '100%', backgroundColor: 'black'}}>
+                    <View style={{width: '100%', alignItems:'center', justifyContent:'center', marginVertical: 50}}>                                    
+                        <Image
+                        source={{ uri: this.state.song }}
+                        style={{ width: 300, height: 300, flex: 1 }}
+                        PlaceholderContent={<ActivityIndicator />}
+                        />
+                        <Icon name='ios-play'
+                        reverse
+                        type='ionicon'
+                        color='red'
+                        iconStyle={{fontSize: 50, left: 2}}
+                        containerStyle={{marginTop: -50}}
+                        onPress={()=> console.log("Hola")}/>                 
+                    </View>
+                </View>   
+            ); 
+        }       
     }
 }

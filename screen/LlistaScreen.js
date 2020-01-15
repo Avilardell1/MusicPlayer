@@ -6,44 +6,30 @@ import {ListItem, Divider } from 'react-native-elements';
 export default class PlayerScreen extends Component {
     state={
         song: '',
-        arraysongs: [
-            {
-               name_song: 'prova1',
-               author: 'sdsfsdsdsf'
-            },
-            {
-                name_song: 'prova2',
-                author: 'sdsfsdsdsf'
-            },
-            {
-                name_song: 'prova1',
-                author: 'sdsfsdsdsf'
-             },
-             {
-                 name_song: 'prova2',
-                 author: 'sdsfsdsdsf'
-            },
-            {
-                name_song: 'prova1',
-                author: 'sdsfsdsdsf'
-            },
-            {
-                 name_song: 'prova2',
-                 author: 'sdsfsdsdsf'
-            },
-            {
-                name_song: 'prova1',
-                author: 'sdsfsdsdsf'
-            },
-            {
-                name_song: 'prova2',
-                author: 'sdsfsdsdsf'
-            }
-        ]
+        arraysongs: [],
+        firstQuery: "Michael Jackson"
     };
 
-    componentDidMount() {        
-        this.setState({song: this.props.navigation.getParam('song', {})});
+    componentDidMount() {       
+        var array_songs = [];    
+        fetch('https://itunes.apple.com/search?term=' + this.state.firstQuery)
+        .then((response) => response.json())    
+        .then((responseJson) => { 
+        if (responseJson != undefined) {                    
+            for( var i=0; i<responseJson.results.length; i++) {
+                array_songs[i] = {
+                    name_song: responseJson.results[i].trackName,
+                    author: responseJson.results[i].artistName,
+                    image: responseJson.results[i].artworkUrl100
+                }
+            }
+            this.setState({ arraysongs:array_songs });
+            if (responseJson.results[0].previewUrl != undefined) { 
+            this.setState({song: responseJson.results[0].previewUrl});
+            this.setState({image:responseJson.results[0].artworkUrl100});
+            }
+        }   
+      })       
     }
 
     static navigationOptions = {
@@ -68,7 +54,7 @@ export default class PlayerScreen extends Component {
                                     key={i}
                                     title={l.name_song}
                                     subtitle={l.author}
-                                    onPress={() => this.props.navigation.navigate("PlayerScreen", {song: l.name_song})}                                                               
+                                    onPress={() => this.props.navigation.navigate("PlayerScreen", {song: l.image})}                                                               
                                 />
                                 <Divider/>                                
                             </View>
