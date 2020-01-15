@@ -30,8 +30,7 @@ export default class PlayerScreen extends Component {
                     <View style={{width: '100%', alignItems:'center', justifyContent:'center', marginVertical: 50}}>                                    
                         <Image
                         source={{ uri: this.state.song }}
-                        style={{ width: 300, height: 300, flex: 1 }}
-                        PlaceholderContent={<ActivityIndicator />}
+                        style={{ width: 300, height: 300, flex: 1 }}                        
                         />
                         <Icon name='ios-play'
                         reverse

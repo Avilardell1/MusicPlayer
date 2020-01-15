@@ -23,11 +23,7 @@ export default class PlayerScreen extends Component {
                     image: responseJson.results[i].artworkUrl100
                 }
             }
-            this.setState({ arraysongs:array_songs });
-            if (responseJson.results[0].previewUrl != undefined) { 
-            this.setState({song: responseJson.results[0].previewUrl});
-            this.setState({image:responseJson.results[0].artworkUrl100});
-            }
+            this.setState({ arraysongs:array_songs });           
         }   
       })       
     }
@@ -52,6 +48,7 @@ export default class PlayerScreen extends Component {
                                 <ListItem
                                     divider={true}
                                     key={i}
+                                    leftAvatar={{ source: { uri: l.image } }}
                                     title={l.name_song}
                                     subtitle={l.author}
                                     onPress={() => this.props.navigation.navigate("PlayerScreen", {song: l.image})}                                                               
